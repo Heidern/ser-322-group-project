@@ -1,5 +1,7 @@
 CREATE DATABASE car_dealer;
 
+use car_dealer;
+
 CREATE TABLE car_dealer.engines (
     engine_code VARCHAR(45) NOT NULL PRIMARY KEY,
     horse_power DOUBLE NULL,
@@ -84,6 +86,29 @@ CREATE TABLE car_dealer.cars (
         REFERENCES car_dealer.drive_trains (trans_code)
         ON DELETE CASCADE ON UPDATE CASCADE  
 );
+
+delimiter $$
+create procedure car_dealer.make_add(
+    name nvarchar (255)    
+)
+begin
+insert into car_dealer.makes (name) values (name);
+
+select last_insert_id() as id;
+end $$
+delimiter ;
+
+delimiter $$
+create procedure make_update(
+	id int,
+    name nvarchar (255)    
+)
+begin
+update car_dealer.makes m
+set m.name = name
+where m.id = id;
+end $$
+delimiter ;
 
 insert into car_dealer.makes (
     name
@@ -175,4 +200,23 @@ values (
     20,
     null,
     2013
+);
+
+insert into car_dealer.cars (
+    vin,
+    trans_serial_number,
+    model_id,
+    year,
+    engine_serial_number,
+    engine_id,
+    drive_train_id
+)
+values (
+    '12345678901234567',
+    'transnumber',
+    15,
+    2013,
+    'engineserialnumber',
+    '2GR-FE',
+    '6A'    
 );
