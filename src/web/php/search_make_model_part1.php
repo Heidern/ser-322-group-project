@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
 
-<!-- carsearchform.php -->
+
 <html xmlns = "http://www.w3.org/1999/xhtml">
 <head>
     <title>Form Validation</title>
@@ -28,7 +28,7 @@
         <legend><font size = "4"><b>Make and Model search</b></font></legend>
         
         <?php
-            $query = "SELECT * FROM makes";
+            $query = "SELECT * FROM make";
             if ( !( $database = mysql_connect( "localhost", "root", "" ) ) )
                 die( "Could not connect to database");
             if ( !mysql_select_db( "car_dealer", $database ) )
@@ -49,6 +49,6 @@
             }
         ?>
     </fieldset>
-    <p><font size = "2" ><i>Searches for any cars of a particular make, then model.</i></p>
+    <p><font size = "2" ><i>Searches for any car of a particular make, then model.</i></p>
 </body>
 </html>
