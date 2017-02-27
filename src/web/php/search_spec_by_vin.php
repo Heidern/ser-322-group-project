@@ -25,8 +25,8 @@
     <br/><br/>
     
     <fieldset>    
-        <legend><font size = "4"><b>VIN search</b></font></legend>
-        <form method = "post" action = "search_vin.php">
+        <legend><font size = "4"><b>Performance Specifications search</b></font></legend>
+        <form method = "post" action = "search_spec_by_vin.php">
             <span class = "prompt">VIN:</span>
             <input type = "text" name = "vin" />
             <input type = "submit" value = "Search" />
@@ -40,7 +40,7 @@
                 if (!preg_match("@^[a-zA-Z0-9]{17}$@", $vin)) {
                     print("<span class = 'error'>Please enter a valid 17 digit VIN number</span>");
                 } else {
-                    $query = "SELECT VIN, name as make_name, model_name, year, drive_train_id,  trans_serial_number, engine_id, engine_serial_number FROM make NATURAL JOIN (SELECT VIN, make_id as id, name AS model_name, year, drive_train_id,  trans_serial_number, engine_id, engine_serial_number FROM model NATURAL JOIN (SELECT VIN, model_id as id, year, drive_train_id,  trans_serial_number, engine_id, engine_serial_number FROM car WHERE vin = '" . $vin . "') AS model_car) AS model_make_car";
+                    $query ="SELECT name as make_name, model_name, year, drive_train_id, engine_id, accel_to_sixty_mph, mpg, breaking_distance FROM make NATURAL JOIN (SELECT make_id as id, name as model_name, year, engine_id, drive_train_id, accel_to_sixty_mph, mpg, breaking_distance FROM model NATURAL JOIN (SELECT * FROM performance_spec NATURAL JOIN (SELECT * FROM car WHERE vin = '" . $vin . "') AS car_spec) AS car_spec_model WHERE model_id = id) AS car_spec_model_make";
 // USERNAME/PASSWORD needs to be made standard
                     if ( !( $database = mysql_connect( "localhost", "root", "" ) ) )
                         die( "Could not connect to database");
@@ -54,17 +54,18 @@
                     
                     // Check if no results were found:
                     if (mysql_num_rows($result) === 0) {
-                        print("<span class = 'error'>The VIN, " . $vin . ", was not found in the database.</span>");
+                        print("<span class = 'error'>Performance specifications for VIN, " . $vin . ", were not found in the database.</span>");
                     } else {
-                        print('<table id="datatable" border="1"><tr>
-							<th>VIN</th>
+                        print('Specs for VIN: ' . $vin . '
+						<table id="datatable" border="1"><tr>
 							<th>Make</th>
 							<th>Model</th>
 							<th>Year</th>
 							<th>Drive-train ID</th>
-							<th>Transm. Serial#</th>
 							<th>Engine ID</th>
-							<th>Engine Serial#</th>
+							<th>Accel to 60mph</th>
+							<th>MPG</th>
+							<th>Breaking Distance</th>
 						</tr>');
                         for ( $counter = 0; $row = mysql_fetch_row( $result ); $counter++ ) {
                             print( "<tr>" );
@@ -81,6 +82,6 @@
             }
         ?>
     </fieldset>
-    <p><font size = "2" ><i>Searches for a car with a specific VIN in and determines make and model.</i></p>
+    <p><font size = "2" ><i>Searches for perfomance specifications using a specific VIN.</i></p>
 </body>
 </html>

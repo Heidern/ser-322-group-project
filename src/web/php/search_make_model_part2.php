@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
 
-<!-- carsearchform.php -->
+
 <html xmlns = "http://www.w3.org/1999/xhtml">
 <head>
     <title>Form Validation</title>
@@ -33,9 +33,9 @@
                 die( '<span class = "error">ERROR: Please first <a href="search_make_model_part1.php">select</a> a car manufacturer.</error>');
             } else {
                 extract( $_POST );
-                // get all models which match given make_id
-                $query = "SELECT * FROM models WHERE make_id = " . $make_choice;
-                $querymake = "SELECT name FROM makes WHERE id = " . $make_choice;
+                // get all model which match given make_id
+                $query = "SELECT * FROM model WHERE make_id = " . $make_choice;
+                $querymake = "SELECT name FROM make WHERE id = " . $make_choice;
                 if ( !( $database = mysql_connect( "localhost", "root", "" ) ) )
                     die( "Could not connect to database");
                 if ( !mysql_select_db( "car_dealer", $database ) )
@@ -52,7 +52,7 @@
                 if (mysql_num_rows($makename) === 0) {
                     print("<span class = 'error'>ERROR: The manufacturer you searched is not in the database.(<a href='search_make_model_part1.php'>try another?</a>)</span>");
                 } else if (mysql_num_rows($result) === 0) {
-                    print("<span class = 'error'>Sorry, the database returned no models for that manufactuer. (<a href='search_make_model_part1.php'>try another?</a>)</span>");
+                    print("<span class = 'error'>Sorry, the database returned no model for that manufactuer. (<a href='search_make_model_part1.php'>try another?</a>)</span>");
                 } else {
                     $row = mysql_fetch_row( $makename );
                     print('<i>Selected: ' . $row[0] . "</i></br>");
@@ -66,6 +66,6 @@
             }
         ?>
     </fieldset>
-    <p><font size = "2" ><i>Searches for any cars of a particular make, then model.</i></p>
+    <p><font size = "2" ><i>Searches for any car of a particular make, then model.</i></p>
 </body>
 </html>
