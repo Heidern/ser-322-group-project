@@ -8,12 +8,16 @@ To set up a local PHP-enabled host:
 
 1. Install XAMPP
 2. Launch XAMPP
-3. Open "Shell" and type:
-```ssh
-cd path/to/your/app  (C:\Users\David\OneDrive\Documents\ASU\SER322_Databases)
-php -S localhost:8000
-```
+3. Open "Shell" and type: 
+  ```ssh
+  cd path/to/your/app  (C:\SER322)
+  php -S localhost:8000
+  ```
 4. Bring up your browser and go to:
-```
-http://localhost:8000/CarDB.html
-```
+  ```
+  http://localhost:8000/CarDB.html
+  ```
+  or
+  ```
+  http://localhost:8000/admin/makes.php
+  ```
