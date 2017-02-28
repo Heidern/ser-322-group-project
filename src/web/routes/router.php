@@ -86,6 +86,29 @@ function route ($controllerName, $action) {
             }
         }
     }
+    else if ($controllerName === "drive-trains") {
+        $controller = new Controllers\DriveTrainController ();
+
+        if ($action === "index") {
+            $controller->getAllDriveTrains ();
+        }
+        else if ($action === "edit") {
+            if (isPost ()) {
+                $vm = new ViewModels\DriveTrainEditViewModel ();                
+                $vm->loadFromFormData();
+
+                $controller->saveDriveTrain ($vm);
+            }
+            else if (isGet()) {
+                $driveTrainCode = filter_input (INPUT_GET, "code", FILTER_SANITIZE_STRING);
+
+                if ($driveTrainCode === false) throw new Error ("Invalid drive train.");
+
+                $controller->getDriveTrainByCode ($driveTrainCode);
+            }
+        }
+    }
+   
     else throw new Error ("route $controllerName => $action not found");
 }
 ?>

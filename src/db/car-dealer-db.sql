@@ -15,11 +15,11 @@ CREATE TABLE car_dealer.engine (
 );
 
 CREATE TABLE car_dealer.drive_train (
-    trans_code VARCHAR(45) NOT NULL PRIMARY KEY,   
-    trans_type VARCHAR(20) NULL,   
-    torque_rating VARCHAR(20) NULL,  
+    trans_code nvarchar(45) NOT NULL PRIMARY KEY,   
+    trans_type nvarchar(20) NULL,   
+    torque_rating nvarchar(20) NULL,  
     num_gears SMALLINT(4) NULL,    
-    manufacturers VARCHAR(40) NULL
+    manufacturers nvarchar(40) NULL
 );
 
 CREATE TABLE car_dealer.make (
@@ -200,6 +200,52 @@ set
 	e.displacement = displacement,
 	e.fuel_type = fuel_type
 where e.engine_code = engine_code;
+end $$
+delimiter ;
+
+delimiter $$
+create procedure car_dealer.drive_train_add(
+    trans_code nvarchar(45),
+    trans_type nvarchar(20),
+    torque_rating nvarchar(20),
+    num_gears SMALLINT(4),
+    manufacturers nvarchar(40)
+)
+begin
+insert into car_dealer.drive_train (
+    trans_code,
+    trans_type,
+    torque_rating,
+    num_gears,
+    manufacturers
+)
+values (
+    trans_code,
+    trans_type,
+    torque_rating,
+    num_gears,
+    manufacturers
+);
+
+end $$
+delimiter ;
+
+delimiter $$
+create procedure car_dealer.drive_train_update(
+    trans_code nvarchar(45),
+    trans_type nvarchar(20),
+    torque_rating nvarchar(20),
+    num_gears SMALLINT(4),
+    manufacturers nvarchar(40)
+)
+begin
+update car_dealer.drive_train e
+set
+	e.trans_type = trans_type,
+	e.torque_rating = torque_rating,
+	e.num_gears = num_gears,
+	e.manufacturers = manufacturers
+where e.trans_code = trans_code;
 end $$
 delimiter ;
 

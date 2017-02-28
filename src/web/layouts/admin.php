@@ -37,6 +37,7 @@
                     <li <?php if($pageCategory === "Makes"):?>class="active"<?php endif;?>><a href="/admin/makes.php">Makes</a></li>
                     <li <?php if($pageCategory === "Models"):?>class="active"<?php endif;?>><a href="/admin/models.php">Models</a></li>
                     <li <?php if($pageCategory === "Engines"):?>class="active"<?php endif;?>><a href="/admin/engines.php">Engines</a></li>
+                    <li <?php if($pageCategory === "Drive Trains"):?>class="active"<?php endif;?>><a href="/admin/drive-trains.php">Drive Trains</a></li>
                 </ul>
             </div>
         </div>
