@@ -26,7 +26,7 @@ class ModelProjectionMapper implements IModelProjectionMapper {
         $db = PdoFactory::getPdoObject();
         $models = array();
 
-        foreach ($db->query("select make.name as make_name, model.* from model left join make on model.make_id = make.id order by make.name") as $r) {
+        foreach ($db->query("select make.name as make_name, model.* from model left join make on model.make_id = make.id order by make.name, model.name") as $r) {
             $models [] = self::mapDbRowToModel($r);
         }
 

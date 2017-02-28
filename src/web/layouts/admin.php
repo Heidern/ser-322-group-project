@@ -1,3 +1,15 @@
+<?php 
+    function FormTextField ($label, $name, $value) {        
+        echo
+        "<div class=\"form-group\">
+            <label class=\"col-sm-2 control-label\" for=\"txt-$name\">$label:</label>
+            <div class=\"col-sm-10\">
+                <input class=\"form-control\" name=\"$name\" id=\"txt-$name\" type=\"text\" value=\"$value\" />
+            </div>
+        </div>";
+    }
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns = "http://www.w3.org/1999/xhtml">
@@ -24,10 +36,11 @@
                 <ul class="nav navbar-nav">
                     <li <?php if($pageCategory === "Makes"):?>class="active"<?php endif;?>><a href="/admin/makes.php">Makes</a></li>
                     <li <?php if($pageCategory === "Models"):?>class="active"<?php endif;?>><a href="/admin/models.php">Models</a></li>
+                    <li <?php if($pageCategory === "Engines"):?>class="active"<?php endif;?>><a href="/admin/engines.php">Engines</a></li>
                 </ul>
             </div>
         </div>
-    </nav>        
+    </nav>
 <?php require_once (__DIR__ . "\\..\\views\\$viewName.php"); ?>
     </div>
 </body>

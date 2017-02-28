@@ -64,6 +64,27 @@ function route ($controllerName, $action) {
             }
         }
     }
+    else if ($controllerName === "engines") {
+        $controller = new Controllers\EngineController ();
+
+        if ($action === "index") {
+            $controller->getAllEngines ();
+        }
+        else if ($action === "edit") {
+            if (isPost ()) {
+                $vm = new ViewModels\EngineEditViewModel ();                
+                $vm->loadFromFormData();
+
+                $controller->saveEngine ($vm);
+            }
+            else if (isGet()) {
+                $engineCode = filter_input (INPUT_GET, "code", FILTER_SANITIZE_STRING);
+
+                if ($engineCode === false) throw new Error ("Invalid engine.");
+                $controller->getEngineByCode ($engineCode);
+            }
+        }
+    }
     else throw new Error ("route $controllerName => $action not found");
 }
 ?>
