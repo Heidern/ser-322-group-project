@@ -1,5 +1,8 @@
 {
     "autoload": {
         "psr-4": {"Core\\": "Core/", "ViewModels\\" : "ViewModels/", "Controllers\\" : "Controllers/"}
+    },
+    "require": {
+        "twbs/bootstrap": "^3.3"
     }
 }

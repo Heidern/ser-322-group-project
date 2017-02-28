@@ -59,7 +59,7 @@ class ModelController {
         $makes = $this->_makeService->getAllMakes ();
         $viewModel->makes = $makes;
 
-        viewWithMessages ("model-edit", $viewModel, array ("Mode saved successfully."));
+        viewWithMessages ("model-edit", $viewModel, array ("Model saved successfully."));
     }
 }
 ?>

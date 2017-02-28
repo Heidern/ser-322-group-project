@@ -3,9 +3,31 @@
 <html xmlns = "http://www.w3.org/1999/xhtml">
 <head>    
     <title><?php echo $pageTitle; ?></title>
-    <link rel="stylsheet" href="/css/admin.css" />
+    <link href="/vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/admin.css" rel="stylsheet">
 </head>
-<body>
-    <h1>CarDB Query Application</h1>
+<body>        
+    <div class="container">        
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">CarDB</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li <?php if($pageCategory === "Makes"):?>class="active"<?php endif;?>><a href="/admin/makes.php">Makes</a></li>
+                    <li <?php if($pageCategory === "Models"):?>class="active"<?php endif;?>><a href="/admin/models.php">Models</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>        
 <?php require_once (__DIR__ . "\\..\\views\\$viewName.php"); ?>
+    </div>
 </body>

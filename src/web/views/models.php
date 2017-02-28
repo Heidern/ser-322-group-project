@@ -1,9 +1,11 @@
-<fieldset>
-    <div>
-        <a href="model-edit.php">New</a>
-    </div>        
-    <legend>Models</legend>
-    <table>
+<h3>Models</h3>
+<div class="btn-toolbar form-group">
+    <div class="btn-group">
+        <a class="btn-sm btn-success" href="model-edit.php">New</a>
+    </div>
+</div>
+<div class="panel panel-default">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Make</th>
@@ -17,10 +19,10 @@
                 echo "<tr>";
                 echo "<td>$m->makeName</td>";
                 echo "<td>$m->name</td>";
-                echo "<td><a href=\"model-edit.php?id=$m->id\">Edit</a></td>";
+                echo "<td class=\"text-right\"><a class=\"btn-sm btn-info\" href=\"model-edit.php?id=$m->id\">Edit</a></td>";
                 echo "</tr>";
             }
         ?>
         </tbody>
     </table>
-</fieldset>
+</div>
