@@ -108,7 +108,28 @@ function route ($controllerName, $action) {
             }
         }
     }
-   
+    else if ($controllerName === "cars") {
+        $controller = new Controllers\CarController ();
+
+        if ($action === "index") {
+            $controller->getAllCars ();
+        }
+        else if ($action === "edit") {
+            if (isPost ()) {
+                $vm = new ViewModels\CarEditViewModel ();                
+                $vm->loadFromFormData();
+
+                $controller->saveCar ($vm);
+            }
+            else if (isGet()) {
+                $carVin = filter_input (INPUT_GET, "vin", FILTER_SANITIZE_STRING);
+
+                if ($carVin === false) throw new Error ("Invalid car.");
+
+                $controller->getCarByVin ($carVin);
+            }
+        }
+    }   
     else throw new Error ("route $controllerName => $action not found");
 }
 ?>
