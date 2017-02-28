@@ -8,4 +8,5 @@ $baseDir = dirname($vendorDir);
 return array(
     'ViewModels\\' => array($baseDir . '/ViewModels'),
     'Core\\' => array($baseDir . '/Core'),
+    'Controllers\\' => array($baseDir . '/Controllers'),
 );

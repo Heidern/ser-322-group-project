@@ -2,25 +2,28 @@
 
 namespace ViewModels;
 
-use Core\Entities\Make;
+use Core\Services\Models\Make as MakeDto;
 
 class MakeEditViewModel {
 	public $id;
 	public $name;
 
-	static function createFromDto (Make $make) : MakeEditViewModel {
-		$vm = new self();
-
-		$vm->id = $make->getId();
-		$vm->name = $make->getName();
-
-		return $vm;
+	public function loadFromDto (MakeDto $makeDto) {
+		$this->id = $makeDto->id;
+		$this->name = $makeDto->name;
 	}
 
-	static function createFromDefaults () : MakeEditViewModel {
-		$vm = new self ();
+	public function saveToDto (MakeDto $makeDto) {
+		$makeDto->id = $this->id;
+		$makeDto->name = $this->name;
+	}
 
-		return $vm;
+	public function loadFromFormData () {
+		$makeId = filter_input (INPUT_POST, "make-id", FILTER_VALIDATE_INT);
+		if ($makeId === false) throw new Error ("Invalid make.");
+
+		$this->id = $makeId;
+		$this->name = filter_input (INPUT_POST, "name");
 	}
 }
 ?>

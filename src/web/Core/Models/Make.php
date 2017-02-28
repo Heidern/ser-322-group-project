@@ -1,14 +1,10 @@
 <?php
 
-namespace Core\Entities;
+namespace Core\Models;
 
 class Make {
     private $id;
     private $name;
-
-    public function __construct () {
-
-    }
 
     public function getId () : int { return $this->id; }
     public function getName () : string { return $this->name; } 

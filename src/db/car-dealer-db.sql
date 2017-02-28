@@ -2,7 +2,7 @@ CREATE DATABASE car_dealer;
 
 use car_dealer;
 
-CREATE TABLE car_dealer.engines (
+CREATE TABLE car_dealer.engine (
     engine_code VARCHAR(45) NOT NULL PRIMARY KEY,
     horse_power DOUBLE NULL,
     torque DOUBLE NULL,
@@ -14,7 +14,7 @@ CREATE TABLE car_dealer.engines (
     fuel_type VARCHAR(45) NULL
 );
 
-CREATE TABLE car_dealer.drive_trains (
+CREATE TABLE car_dealer.drive_train (
     trans_code VARCHAR(45) NOT NULL PRIMARY KEY,   
     trans_type VARCHAR(20) NULL,   
     torque_rating VARCHAR(20) NULL,  
@@ -22,25 +22,25 @@ CREATE TABLE car_dealer.drive_trains (
     manufacturers VARCHAR(40) NULL
 );
 
-CREATE TABLE car_dealer.makes (
+CREATE TABLE car_dealer.make (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     name VARCHAR (255),
     INDEX ix_makes_name (name)
 );
 
-CREATE TABLE car_dealer.models (
+CREATE TABLE car_dealer.model (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     make_id INT,
     name VARCHAR (255) NOT NULL,
-    CONSTRAINT fk_models_make_id 
+    CONSTRAINT fk_model_make_id 
     FOREIGN KEY (make_id) 
-    REFERENCES car_dealer.makes (id)
+    REFERENCES car_dealer.make (id)
     ON DELETE CASCADE,
     INDEX ix_model_name (name),
     INDEX ix_model_make_id (make_id, name)
 );
 
-CREATE TABLE car_dealer.performance_specs (
+CREATE TABLE car_dealer.performance_spec (
     model_id INT NOT NULL,
     engine_id VARCHAR(45) NOT NULL,
     drive_train_id VARCHAR(45) NOT NULL,
@@ -52,17 +52,17 @@ CREATE TABLE car_dealer.performance_specs (
     INDEX drive_train_idx (drive_train_id ASC),
     CONSTRAINT fk_ps_model_id 
         FOREIGN KEY (model_id) 
-        REFERENCES car_dealer.models (id),
+        REFERENCES car_dealer.model (id),
     CONSTRAINT fk_ps_engines 
         FOREIGN KEY (engine_id)
-        REFERENCES car_dealer.engines (engine_code),
+        REFERENCES car_dealer.engine (engine_code),
     CONSTRAINT fk_ps_drive_train 
         FOREIGN KEY (drive_train_id)
-        REFERENCES car_dealer.drive_trains (trans_code),
+        REFERENCES car_dealer.drive_train (trans_code),
     PRIMARY KEY(model_id, engine_id, drive_train_id, year)
 );
 
-CREATE TABLE car_dealer.cars (
+CREATE TABLE car_dealer.car (
     vin VARCHAR(17) NOT NULL,
     trans_serial_number VARCHAR(45) NULL,
     model_id INT NOT NULL,
@@ -75,15 +75,15 @@ CREATE TABLE car_dealer.cars (
     INDEX ix_drive_train (drive_train_id ASC),
     CONSTRAINT fk_cars_model_id 
         FOREIGN KEY (model_id) 
-        REFERENCES car_dealer.models (id) 
+        REFERENCES car_dealer.model (id) 
         ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT fk_cars_engines 
         FOREIGN KEY (engine_id)
-        REFERENCES car_dealer.engines (engine_code) 
+        REFERENCES car_dealer.engine (engine_code) 
         ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT fk_cars_drive_train 
         FOREIGN KEY (drive_train_id)
-        REFERENCES car_dealer.drive_trains (trans_code)
+        REFERENCES car_dealer.drive_train (trans_code)
         ON DELETE CASCADE ON UPDATE CASCADE  
 );
 
@@ -92,25 +92,52 @@ create procedure car_dealer.make_add(
     name nvarchar (255)    
 )
 begin
-insert into car_dealer.makes (name) values (name);
+insert into car_dealer.make (name) values (name);
 
 select last_insert_id() as id;
 end $$
 delimiter ;
 
 delimiter $$
-create procedure make_update(
+create procedure car_dealer.make_update(
 	id int,
     name nvarchar (255)    
 )
 begin
-update car_dealer.makes m
+update car_dealer.make m
 set m.name = name
 where m.id = id;
 end $$
 delimiter ;
 
-insert into car_dealer.makes (
+delimiter $$
+create procedure car_dealer.model_add(
+	make_id int,
+    name nvarchar (255)    
+)
+begin
+insert into car_dealer.model (make_id, name) values (make_id, name);
+
+select last_insert_id() as id;
+end $$
+delimiter ;
+
+delimiter $$
+create procedure car_dealer.model_update(
+	id int,
+    make_id int,
+    name nvarchar (255)    
+)
+begin
+update car_dealer.model m
+set
+	m.make_id = make_id,
+	m.name = name
+where m.id = id;
+end $$
+delimiter ;
+
+insert into car_dealer.make (
     name
 )
 values
@@ -122,7 +149,7 @@ values
     ('Mazda'),
     ('Lexus');
     
-insert into car_dealer.models (
+insert into car_dealer.model (
     make_id,
     name
 )
@@ -144,7 +171,7 @@ values
     (7, 'RX 350');
     
 
-insert into car_dealer.engines (
+insert into car_dealer.engine (
     engine_code,
     horse_power,
     torque,
@@ -167,7 +194,7 @@ values (
     'premium unleaded'
 );
 
-insert into car_dealer.drive_trains
+insert into car_dealer.drive_train
 (
     trans_code,
     trans_type,
@@ -183,7 +210,7 @@ values (
     null
 );
 
-insert into car_dealer.performance_specs (
+insert into car_dealer.performance_spec (
     model_id,
     engine_id,
     drive_train_id,
@@ -202,7 +229,7 @@ values (
     2013
 );
 
-insert into car_dealer.cars (
+insert into car_dealer.car (
     vin,
     trans_serial_number,
     model_id,

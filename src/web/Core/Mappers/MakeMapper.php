@@ -4,12 +4,14 @@ namespace Core\Mappers;
 
 use \PDO;
 use \Error;
-use Core\Entities\Make;
-use Core\Shared\DbConnectionFactory;
+use Core\Models\Make;
+use Core\Shared\PdoFactory;
 
 interface IMakeMapper {
     public function getAllMakes () : array;
+    public function getMakeById (int $id) : Make;
     public function addMake (Make $make);
+    public function updateMake (Make $make);    
 }
 
 class MakeMapper implements IMakeMapper {
@@ -25,10 +27,10 @@ class MakeMapper implements IMakeMapper {
     }
 
     public function getAllMakes () : array {
-        $db = DbConnectionFactory::getConnection ();
+        $db = PdoFactory::getPdoObject();
         $makes = array();
 
-        foreach ($db->query("select * from makes") as $r) {
+        foreach ($db->query("select * from make") as $r) {
             $makes [] = self::mapDbRowToMake($r);
         }
 
@@ -36,9 +38,9 @@ class MakeMapper implements IMakeMapper {
     }
 
     public function getMakeById (int $id) : Make {
-        $db = DbConnectionFactory::getConnection ();
+        $db = PdoFactory::getPdoObject();
 
-        $sql = $db->prepare("select * from car_dealer.makes where id = :id");
+        $sql = $db->prepare("select * from car_dealer.make where id = :id");
         $sql->execute (array (":id" => $id));
         $r = $sql->fetch (PDO::FETCH_ASSOC);        
 
@@ -46,18 +48,18 @@ class MakeMapper implements IMakeMapper {
     }
 
     public function addMake (Make $make) {            
-        $db = DbConnectionFactory::getConnection ();
+        $db = PdoFactory::getPdoObject();
 
         $name = $make->getName();
 
         $sql = $db->prepare("call car_dealer.make_add (:name)");
         $sql->execute (array (":name" => $name));
         $r = $sql->fetch (PDO::FETCH_ASSOC);
-        $make->setId ($r['id']);
+        $make->setId ($r["id"]);
     }
 
     public function updateMake (Make $make) {            
-        $db = DbConnectionFactory::getConnection ();
+        $db = PdoFactory::getPdoObject();
 
         $sql = $db->prepare("call car_dealer.make_update (:id, :name)");
         $sql->execute (array (":id" => $make->getId (), ":name" => $make->getName()));
