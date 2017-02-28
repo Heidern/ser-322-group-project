@@ -22,13 +22,13 @@
         <div>
             <label for="txt-name">Name:</label><input name="name" id="txt-make" type="text" value="<?php echo $viewModel->name; ?>" />
         </div>
-    </fieldset>	
+    </fieldset>    
     <div>
         <input type="submit" name="submit" id="btn-save" value="Save" />
     </div>
 </form>
 <?php if (isset ($viewMessages)): ?>
-<ul id="messages">		
+<ul id="messages">        
     <?php
     foreach ($viewMessages as $m) { 
         echo "<li>$m</li>";

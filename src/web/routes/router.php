@@ -3,19 +3,19 @@ require __DIR__ . "'\\..\\vendor\\autoload.php";
 
 function view ($viewName, $model) 
 {
-	viewWithMessages ($viewName, $model, null);
+    viewWithMessages ($viewName, $model, null);
 }
 
 function viewWithMessages ($viewName, $model, $messages) {
     $viewModel = $model;
-	$viewMessages = $messages;	
+    $viewMessages = $messages;    
 
     require_once (__DIR__ . "\\..\\views\\$viewName-page-properties.php");
 
     if (isset ($pageLayout)) {
         require_once (__DIR__ . "\\..\\layouts\\$pageLayout.php");
     }
-	else require_once (__DIR__ . "\\..\\views\\$viewName.php");
+    else require_once (__DIR__ . "\\..\\views\\$viewName.php");
 }
 
 function isPost () : bool { return $_SERVER ["REQUEST_METHOD"] === "POST"; }

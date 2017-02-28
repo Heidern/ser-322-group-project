@@ -8,49 +8,49 @@ use ViewModels\MakeEditViewModel;
 
 class MakeController {
 
-	private $_makeService;
-	
-	public function __construct () {
-		$this->_makeService = new MakeService ();
-	}
+    private $_makeService;
+    
+    public function __construct () {
+        $this->_makeService = new MakeService ();
+    }
 
-	public function getAllMakes () {
-		$makeDtos = $this->_makeService->getAllMakes ();
+    public function getAllMakes () {
+        $makeDtos = $this->_makeService->getAllMakes ();
 
-		$makeViewModels = array ();
+        $makeViewModels = array ();
 
-		foreach ($makeDtos as $makeDto) {
-			$vm = new MakeEditViewModel ();
-			$vm->loadFromDto ($makeDto);
-			$makeViewModels [] = $vm;
-		}
+        foreach ($makeDtos as $makeDto) {
+            $vm = new MakeEditViewModel ();
+            $vm->loadFromDto ($makeDto);
+            $makeViewModels [] = $vm;
+        }
 
-		view ("makes", $makeViewModels);
-	}
+        view ("makes", $makeViewModels);
+    }
 
-	public function getMake ($makeId) {
+    public function getMake ($makeId) {
 
         $viewModel = new MakeEditViewModel ();
 
-		if (isset ($makeId)) {			
+        if (isset ($makeId)) {            
 
-			$make = $this->_makeService->getMakeById ($makeId);
+            $make = $this->_makeService->getMakeById ($makeId);
 
-			$viewModel->loadFromDto ($make);
-		}
+            $viewModel->loadFromDto ($make);
+        }
 
         view ("make-edit", $viewModel);
-	}
+    }
 
-	public function saveMake (MakeEditViewModel $viewModel) {
-		if (isset ($viewModel->id)) {
+    public function saveMake (MakeEditViewModel $viewModel) {
+        if (isset ($viewModel->id)) {
             $makeDto = new MakeDto ();
 
             $viewModel->saveToDto ($makeDto);
 
-            $this->_makeService->updateMake ($makeDto);		
-		}
-		else {
+            $this->_makeService->updateMake ($makeDto);        
+        }
+        else {
             $makeDto = new MakeDto ();
 
             $viewModel->saveToDto ($makeDto);
@@ -58,9 +58,9 @@ class MakeController {
             $this->_makeService->addMake ($makeDto);
 
             $viewModel->id = $makeDto->id;
-		}
+        }
 
         viewWithMessages ("make-edit", $viewModel, array ("Make saved successfully."));
-	}
+    }
 }
 ?>

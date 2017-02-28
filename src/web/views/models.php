@@ -1,7 +1,7 @@
 <fieldset>
     <div>
         <a href="model-edit.php">New</a>
-    </div>		
+    </div>        
     <legend>Models</legend>
     <table>
         <thead>

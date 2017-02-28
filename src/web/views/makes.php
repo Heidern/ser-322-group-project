@@ -1,7 +1,7 @@
 <fieldset>
     <div>
         <a href="make-edit.php">New</a>
-    </div>		
+    </div>        
     <legend>Makes</legend>
     <table>
         <thead>
