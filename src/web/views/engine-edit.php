@@ -5,9 +5,9 @@
 </div>
 <div class="panel panel-default">
     <div class="panel-body">
-        <form class="form-horizontal" action="make-edit.php" method="post">
+        <form class="form-horizontal" action="engine-edit.php" method="post">
         <?php if (isset ($viewModel->engineCode)): ?>
-            <input type="hidden" name="engine-code" value="<?php echo $viewModel->engineCode ?>" />
+            <input type="hidden" name="original_engine_code" value="<?php echo $viewModel->engineCode ?>" />
         <?php endif; ?>
             <?php FormTextField ("Engine Code", "engine_code", $viewModel->engineCode); ?>
             <?php FormTextField ("Horse Power", "horse_power", $viewModel->horsePower); ?>

@@ -81,6 +81,7 @@ function route ($controllerName, $action) {
                 $engineCode = filter_input (INPUT_GET, "code", FILTER_SANITIZE_STRING);
 
                 if ($engineCode === false) throw new Error ("Invalid engine.");
+
                 $controller->getEngineByCode ($engineCode);
             }
         }

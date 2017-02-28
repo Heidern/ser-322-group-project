@@ -3,15 +3,15 @@ CREATE DATABASE car_dealer;
 use car_dealer;
 
 CREATE TABLE car_dealer.engine (
-    engine_code VARCHAR(45) NOT NULL PRIMARY KEY,
+    engine_code nvarchar(45) NOT NULL PRIMARY KEY,
     horse_power DOUBLE NULL,
     torque DOUBLE NULL,
-    engine_plant VARCHAR(45) NULL,
+    engine_plant nvarchar(45) NULL,
     num_cylinders TINYINT(1) NULL,
-    block_type VARCHAR(45) NULL,
-    block_material VARCHAR(45) NULL,
-    displacement VARCHAR(45) NULL,
-    fuel_type VARCHAR(45) NULL
+    block_type nvarchar(45) NULL,
+    block_material nvarchar(45) NULL,
+    displacement nvarchar(45) NULL,
+    fuel_type nvarchar(45) NULL
 );
 
 CREATE TABLE car_dealer.drive_train (
@@ -134,6 +134,72 @@ set
 	m.make_id = make_id,
 	m.name = name
 where m.id = id;
+end $$
+delimiter ;
+
+delimiter $$
+create procedure car_dealer.engine_add(
+    engine_code nvarchar(45),
+    horse_power double,
+    torque double,
+    engine_plant nvarchar(45),
+    num_cylinders TINYINT(1),
+    block_type nvarchar(45),
+    block_material nvarchar(45),
+    displacement nvarchar(45),
+    fuel_type nvarchar(45)
+)
+begin
+insert into car_dealer.engine (
+    engine_code,
+    horse_power,
+    torque,
+    engine_plant,
+    num_cylinders,
+    block_type,
+    block_material,
+    displacement,
+    fuel_type
+)
+values (
+    engine_code,
+    horse_power,
+    torque,
+    engine_plant,
+    num_cylinders,
+    block_type,
+    block_material,
+    displacement,
+    fuel_type
+);
+
+end $$
+delimiter ;
+
+delimiter $$
+create procedure car_dealer.engine_update(
+    engine_code nvarchar(45),
+    horse_power double,
+    torque double,
+    engine_plant nvarchar(45),
+    num_cylinders TINYINT(1),
+    block_type nvarchar(45),
+    block_material nvarchar(45),
+    displacement nvarchar(45),
+    fuel_type nvarchar(45)
+)
+begin
+update car_dealer.engine e
+set
+	e.horse_power = horse_power,
+	e.torque = torque,
+	e.engine_plant = engine_plant,
+	e.num_cylinders = num_cylinders,
+	e.block_type = block_type,
+	e.block_material = block_material,
+	e.displacement = displacement,
+	e.fuel_type = fuel_type
+where e.engine_code = engine_code;
 end $$
 delimiter ;
 

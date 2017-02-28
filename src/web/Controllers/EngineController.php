@@ -43,7 +43,7 @@ class EngineController {
     }
 
     public function saveEngine (EngineEditViewModel $viewModel) {
-        if (isset ($viewModel->code)) {
+        if (isset ($viewModel->originalEngineCode)) {
             $engineDto = new EngineDto ();
 
             $viewModel->saveToDto ($engineDto);
@@ -56,8 +56,6 @@ class EngineController {
             $viewModel->saveToDto ($engineDto);
 
             $this->_engineService->addEngine ($engineDto);
-
-            $viewModel->code = $engineDto->code;
         }
 
         viewWithMessages ("engine-edit", $viewModel, array ("Engine saved successfully."));

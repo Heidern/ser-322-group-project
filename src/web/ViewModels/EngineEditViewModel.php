@@ -5,6 +5,7 @@ namespace ViewModels;
 use Core\Services\Models\Engine as EngineDto;
 
 class EngineEditViewModel {
+    public $originalEngineCode;
     public $engineCode;
     public $horsePower;
     public $torque;
@@ -40,6 +41,7 @@ class EngineEditViewModel {
     }
 
     public function loadFromFormData () {
+        $this->originalEngineCode = filter_input (INPUT_POST, "original_engine_code");        
         $this->engineCode = filter_input (INPUT_POST, "engine_code");
         $this->horsePower = filter_input (INPUT_POST, "horse_power");
         $this->torque = filter_input (INPUT_POST, "torque");

@@ -10,7 +10,7 @@ use Core\Mappers\EngineMapper;
 
 interface IEngineService {
     public function getAllEngines () : array;
-    public function getEngineByCode (string $code) : EngineDto;
+    public function getEngineByCode ($code) : EngineDto;
     public function addEngine (EngineDto $engine);
     public function updateEngine (EngineDto $engine);
 }
@@ -30,8 +30,8 @@ class EngineService implements IEngineService {
         return $this->_dtoMapper->mapEntitiesToDtos ($engines);
     }
 
-    public function getEngineByCode (string $code) : EngineDto {
-        $engine = $this->_engineMapper->getEngineByCode ($code);
+    public function getEngineByCode ($engineCode) : EngineDto {
+        $engine = $this->_engineMapper->getEngineByCode ($engineCode);
         return $this->_dtoMapper->mapEntityToDto ($engine);        
     }
 

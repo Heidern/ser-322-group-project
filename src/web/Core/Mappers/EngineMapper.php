@@ -68,8 +68,6 @@ class EngineMapper implements IEngineMapper {
                 ":fuel_type" => $engine->getFuelType()
             )
         );
-        $r = $sql->fetch (PDO::FETCH_ASSOC);
-        $engine->setId ($r["id"]);
     }
 
     public function updateEngine (Engine $engine) {            
