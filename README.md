@@ -7,8 +7,8 @@ David Morris,
 Sadai Sarmiento Carneiro,
 
 ## Additional files
-car_dealer.sql holds the script to create the car_dealer database without data. (src/db/car-dealer-db.sql includes test data)
-sql-queries.txt lists non-trivial database query scripts used on the database.
+"car_dealer.sql" holds the script to create the car_dealer database without data. (src/db/car-dealer-db.sql includes test data)
+"sql-queries.txt" lists non-trivial database query scripts used on the database.
 
 ## Setting up the database
 To set up a local PHP-enabled host with testdata:
