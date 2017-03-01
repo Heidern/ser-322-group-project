@@ -13,7 +13,7 @@ To set up a local PHP-enabled host with testdata:
 3. Open "Shell" and type:
 ```ssh
 cd path\to\your\app (C:\SER322)
-mysql < db/car-dealer-db.sql -u root
+mysql < db\car-dealer-db.sql -u root
 cd src\web
 php -S localhost:8000
 ```
