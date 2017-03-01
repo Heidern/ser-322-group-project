@@ -15,7 +15,7 @@ To set up a local PHP-enabled host with testdata:
 
 1. Install XAMPP (minimum php version 7.0.x)
 2. Launch XAMPP
-3. Use checkboxes to activate Apache and MySQL modules
+3. Use checkboxes to activate Apache and MySQL services
 4. Click "Start" on Apache and MySQL
 3. Open "Shell" and type:
 ```ssh
