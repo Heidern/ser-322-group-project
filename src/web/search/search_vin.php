@@ -81,6 +81,6 @@
             }
         ?>
     </fieldset>
-    <p><font size = "2" ><i>Searches for a car with a specific VIN in and determines make and model.</i></p>
+    <p><font size = "2" ><i>Searches for a car with a specific VIN in and determines make and model. (Try 12345678901234568)</i></p>
 </body>
 </html>
