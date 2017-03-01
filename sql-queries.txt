@@ -1,0 +1,63 @@
+This file includes non-tivial sql queries that are used against the car_dealer database.
+Variables remain in there php-form.
+================================================================================
+
+1) Search cars by VIN, and retrieve names of make and model:
+	"SELECT VIN, name as make_name, model_name, year, drive_train_id,  trans_serial_number, engine_id, engine_serial_number 
+	FROM make NATURAL JOIN (
+		SELECT VIN, make_id as id, name AS model_name, year, drive_train_id,  trans_serial_number, engine_id, engine_serial_number 
+		FROM model NATURAL JOIN (
+			SELECT VIN, model_id as id, year, drive_train_id,  trans_serial_number, engine_id, engine_serial_number FROM car WHERE vin = '" . $vin . "') 
+		AS model_car) 
+	AS model_make_car"
+
+2) Search drive-trains by transmission code:
+	"SELECT * FROM drive_train WHERE trans_code = '" . $transCode . "'"
+
+3) Search engines by engine code:
+	"SELECT * FROM engine WHERE engine_code = '" . $engineCode . "'"
+	
+4) Search models of particular make:
+	"SELECT * FROM model WHERE make_id = " . $make_choice
+	
+5) Search cars for given make and model:
+	"SELECT vin, year, drive_train_id,  trans_serial_number, engine_id, engine_serial_number 
+	FROM car 
+	WHERE model_id = " . $model_choice"
+
+6) Search for name of a particular model:
+	"SELECT name FROM model WHERE id = " . $model_choice	
+	
+7) Search for name of the make of a particular model:
+	"SELECT name 
+	FROM make 
+	WHERE id IN (
+		SELECT make_id AS id 
+		FROM model 
+		WHERE id = " . $model_choice . ")"
+		
+8) Search for specific cars within a given miles per gallan (mpg) range, then finds names of make and model:  (mpg ranges are: "mpg < 20", "mpg BETWEEN 20 AND 30", "mpg >= 30") 	
+	"SELECT mpg, name as make_name, model_name, year, vin 
+	FROM make NATURAL JOIN (
+		SELECT vin, make_id as id, name as model_name, year, mpg 
+		FROM model NATURAL JOIN (
+			SELECT vin, model_id as id, year, mpg 
+			FROM car NATURAL JOIN performance_spec 
+			WHERE " . $mpg_range . ") 
+		AS car_model_mpg)
+	AS car_model_make_mpg"
+	
+9) Using a particular VIN, searches for a car's performance specifications, make, and model:
+	"SELECT name as make_name, model_name, year, drive_train_id, engine_id, accel_to_sixty_mph, mpg, breaking_distance 
+	FROM make NATURAL JOIN (
+		SELECT make_id as id, name as model_name, year, engine_id, drive_train_id, accel_to_sixty_mph, mpg, breaking_distance 
+		FROM model NATURAL JOIN (
+			SELECT * 
+			FROM performance_spec NATURAL JOIN (
+				SELECT * 
+				FROM car 
+				WHERE vin = '" . $vin . "') 
+			AS car_spec) 
+		AS car_spec_model 
+		WHERE model_id = id) 
+	AS car_spec_model_make"
