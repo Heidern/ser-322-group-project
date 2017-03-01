@@ -41,16 +41,13 @@
                     print("<span class = 'error'>Please enter a valid 17 digit VIN number</span>");
                 } else {
                     $query = "SELECT VIN, name as make_name, model_name, year, drive_train_id,  trans_serial_number, engine_id, engine_serial_number FROM make NATURAL JOIN (SELECT VIN, make_id as id, name AS model_name, year, drive_train_id,  trans_serial_number, engine_id, engine_serial_number FROM model NATURAL JOIN (SELECT VIN, model_id as id, year, drive_train_id,  trans_serial_number, engine_id, engine_serial_number FROM car WHERE vin = '" . $vin . "') AS model_car) AS model_make_car";
-// USERNAME/PASSWORD needs to be made standard
-                    if ( !( $database = mysql_connect( "localhost", "root", "" ) ) )
+                    if ( !( $database = mysqli_connect( "localhost", "root", "", "car_dealer" ) ) )
                         die( "Could not connect to database");
-                    
-                        
-                    if ( !( $result = mysql_query( $query, $database ) ) ) {
+                    if ( !( $result = mysqli_query( $database, $query  ) ) ) {
                         print( "Could not execute query!" );
-                        die( mysql_error());
+                        die( mysqli_error($database));
                     }                
-                    mysql_close( $database );
+                    mysqli_close( $database );
                     
                     // Check if no results were found:
                     if (mysqli_num_rows($result) === 0) {
@@ -66,7 +63,7 @@
 							<th>Engine ID</th>
 							<th>Engine Serial#</th>
 						</tr>');
-                        for ( $counter = 0; $row = mysql_fetch_row( $result ); $counter++ ) {
+                        for ( $counter = 0; $row = mysqli_fetch_row( $result ); $counter++ ) {
                             print( "<tr>" );
                                 foreach ( $row as $key => $value )
                                     print( "<td>$value</td>" );
