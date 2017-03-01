@@ -79,6 +79,6 @@
             }
         ?>
     </fieldset>
-    <p><font size = "2" ><i>Searches for perfomance specifications using a specific VIN.</i></p>
+    <p><font size = "2" ><i>Searches for perfomance specifications using a specific VIN. (Try 12345678901234567)</i></p>
 </body>
 </html>
