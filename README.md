@@ -19,5 +19,5 @@ php -S localhost:8000
 ```
 Bring up your browser and go to:
 ```
-http://localhost:8000/CarDB.html
+http://localhost:8000/cardb.html
 ```
