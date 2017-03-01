@@ -64,6 +64,6 @@
             }
         ?>
     </fieldset>
-    <p><font size = "2" ><i>Searches for any car of a particular make, then model.</i></p>
+    <p><font size = "2" ><i>Searches for any car of a particular make, then model. (Try Ford, GT)</i></p>
 </body>
 </html>
