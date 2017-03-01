@@ -1,9 +1,16 @@
 # ser-322-group-project
+## TEAM 9 Group members:
+Marcinina Alvaran
+Enos Franceschini
+Gerardo Gaz
+David Morris
+Sadai Sarmiento Carneiro
 
-## CarDB
+## Additional files
+car_dealer.sql holds the script to create the car_dealer database without data. (src/db/car-dealer-db.sql includes test data)
+sql-queries.txt lists non-trivial database query scripts used on the database.
 
-These files use the given structure (CarDB is the homepage, additional pages are under “resources”) Download them to a local machine to test.
-
+## Setting up the database
 To set up a local PHP-enabled host with testdata:
 
 1. Install XAMPP (minimum php version 7.0.x)
