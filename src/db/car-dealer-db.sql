@@ -42,8 +42,8 @@ CREATE TABLE car_dealer.model (
 
 CREATE TABLE car_dealer.performance_spec (
     model_id INT NOT NULL,
-    engine_id VARCHAR(45) NOT NULL,
-    drive_train_id VARCHAR(45) NOT NULL,
+    engine_id nvarchar(45) NOT NULL,
+    drive_train_id nvarchar(45) NOT NULL,
     accel_to_sixty_mph DOUBLE NULL,
     mpg SMALLINT(3) NULL,
     breaking_distance double NULL,
@@ -63,13 +63,13 @@ CREATE TABLE car_dealer.performance_spec (
 );
 
 CREATE TABLE car_dealer.car (
-    vin VARCHAR(17) NOT NULL,
-    trans_serial_number VARCHAR(45) NULL,
+    vin nvarchar(17) NOT NULL,
+    trans_serial_number nvarchar(45) NULL,
     model_id INT NOT NULL,
     year SMALLINT(4) NOT NULL,
-    engine_serial_number VARCHAR(45) NULL,
-    engine_id VARCHAR(45) NOT NULL,
-    drive_train_id VARCHAR(45) NOT NULL,
+    engine_serial_number nvarchar(45) NULL,
+    engine_id nvarchar(45) NOT NULL,
+    drive_train_id nvarchar(45) NOT NULL,
     PRIMARY KEY (vin),
     INDEX ix_engine_id (engine_id ASC),  
     INDEX ix_drive_train (drive_train_id ASC),
