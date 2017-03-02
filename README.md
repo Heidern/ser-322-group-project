@@ -18,7 +18,7 @@ To set up a local PHP-enabled host with testdata:
 3. Use checkboxes to activate Apache and MySQL services
 4. Click "Start" on Apache and MySQL
 3. Open "Shell" and type:
-```ssh
+```
 cd path\to\your\app (C:\SER322)
 mysql < src\db\car-dealer-db.sql -u root
 cd src\web
