@@ -4,7 +4,7 @@ Marcinina Alvaran,
 Enos Franceschini,
 Gerardo Gaz,
 David Morris,
-Sadai Sarmiento Carneiro,
+Sadai Sarmiento Carneiro
 
 ## Additional files
 "car_dealer.sql" holds the script to create the car_dealer database without data. (src/db/car-dealer-db.sql includes test data)
